@@ -10,16 +10,24 @@ import 'package:redux_epics/redux_epics.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
+  final store = new Store<AppState>(
+    appStateReducer,
+    initialState: new AppState(),
+    middleware: [new EpicMiddleware(allEpics)]
+  );
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return new StoreProvider(
+      store: store,
+      child: new MaterialApp(
         title: 'Flutter: Firebase & Redux in sync',
         theme: new ThemeData(
           primarySwatch: Colors.blue,
         ),
         home: new MyHomePage(title: 'Flutter: Firebase & Redux in sync'),
-      );
+      ),
+    );
   }
 }
 
